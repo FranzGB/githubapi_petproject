@@ -1,5 +1,4 @@
-import moment from 'moment';
-
+import moment from "./node_modules/moment/dist/moment.js"
 async function getAllRepos() {
     const url = "https://api.github.com/orgs/stackbuilders/repos";
     const response = await fetch(url);
@@ -13,7 +12,8 @@ function filter5Stars(repos){
 }
 
 function sortByDate(repos){
-    const sortedRepos =  repos.sort((a,b)=> moment(b.pushed_at).diff(moment(a.pushed_at)))
+    const reposClone = [...repos];
+    const sortedRepos =  reposClone.sort((a,b)=> moment(b.pushed_at).diff(moment(a.pushed_at)))
     return sortedRepos
 }
 

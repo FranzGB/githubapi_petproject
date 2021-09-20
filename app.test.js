@@ -1,4 +1,4 @@
-import {filter5Stars, getAllRepos,sortByDate, filterLast5Updated, sumAllStars } from './app';
+import * as App from './app.js';
 import moment from 'moment';
 
 beforeEach(() => {
@@ -3203,19 +3203,19 @@ beforeEach(() => {
 describe("It fetches all repositories from SB Github and returns all the ones that more or equal to 5 stars",()=>{  
     it('Get all repositories form SB organization',async () => {
         fetch.mockResponseOnce(JSON.stringify(mockRepos));
-        const repos = await getAllRepos();
+        const repos = await App.getAllRepos();
         expect(repos).toEqual(mockRepos);
         expect(fetch).toHaveBeenCalledTimes(1);
     })
     
     it("Filters my repo list with only the repositories that have 5 or more stars", ()=>{
-        const my5Stars = filter5Stars(mockRepos);
+        const my5Stars = App.filter5Stars(mockRepos);
         my5Stars.forEach(repo=>expect(repo.stargazers_count).toBeGreaterThanOrEqual(5));
     })
 })
 describe("It filters the last 5 updated repositories",()=>{
     it("Sorts my repositories by its update date",()=>{
-        const mySorted = sortByDate(mockRepos);
+        const mySorted = App.sortByDate(mockRepos);
         mySorted.forEach(
             (currentRepo,idx,repos) =>{
                 if (idx +1 == repos.length){
@@ -3227,14 +3227,14 @@ describe("It filters the last 5 updated repositories",()=>{
             })
     })
     it("filters my repositories to the last 5 updated",()=>{
-        const myLastUpdated = filterLast5Updated(mockRepos);
+        const myLastUpdated = App.filterLast5Updated(mockRepos);
         expect(myLastUpdated.length).toEqual(5)
     })
 })
 
 describe("Returns the sum of all repositories stars",()=>{
     it("Sums all the repositories stars",()=>{
-        expect(sumAllStars(mockRepos)).toEqual(214);
+        expect(App.sumAllStars(mockRepos)).toEqual(214);
     }
     )
 })
