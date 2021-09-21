@@ -27,6 +27,9 @@
   "jest": {
     "setupFilesAfterEnv": [
       "./setupJest.js"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!(moment)/)"
     ]
   }
 }
