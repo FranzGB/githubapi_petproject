@@ -1,5 +1,6 @@
 import * as App from './app.js';
 import moment from 'moment';
+import {sortByStars,sortAlphabetically,removeRepoWithH} from './src/functions.js';
 
 beforeEach(() => {
     fetch.resetMocks();
@@ -256,4 +257,36 @@ describe("Returns the sum of all repositories stars",()=>{
     }
     )
 })
+describe("Return the top 5 repositories with more stars", () =>{
+  it("Sorts the repositories by the number of stars", () =>{
+    const mySorted = sortByStars(mockRepos);
+    mySorted.forEach(
+      (currentRepo,idx,repos) =>{
+        if (idx +1 == repos.length){
+
+        }
+        else
+            expect(currentRepo.stargazers_count>=repos[idx+1].stargazers_count).toBeTruthy();   
+    })
+  })
+})
+describe("Return the repositories ordered alphabetically and removes the repositories that begin with h", ()=>{
+  it("Sorts the repositories alphabetically",()=>{
+    const mySorted = sortAlphabetically(mockRepos);
+    mySorted.forEach(
+      (currentRepo,idx,repos) =>{
+        if (idx +1 == repos.length){
+
+        }
+        else {
+            const value = currentRepo.name.localeCompare(repos[idx+1].name);
+            expect(value<=0).toBeTruthy()
+        }
+      })
+    })
+    it("Removes the repositories that starts with h",()=>{
+      const removedH = removeRepoWithH(mockRepos);
+      removedH.forEach(currentRepo =>expect(currentRepo.name.charAt(0)==="h" || currentRepo.name.charAt(0) ==="H").toBeFalsy())
+    })
+  })
 
