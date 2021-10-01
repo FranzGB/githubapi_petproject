@@ -1,4 +1,4 @@
-export declare function getAllRepos(): Promise<any>;
+export declare function getAllRepos(url: string): Promise<any>;
 export interface Irepo {
     id: string;
     name: string;
@@ -17,5 +17,8 @@ export declare function reduceProperties(repos: Irepo[]): {
 }[];
 export declare function filter5Stars(repos: Irepo[]): Irepo[];
 export declare function sortByDate(repos: Irepo[]): Irepo[];
-export declare function filterLast5Updated(repos: Irepo[]): Irepo[];
+export declare function filterFirst5(repos: Irepo[]): Irepo[];
 export declare function sumAllStars(repos: Irepo[]): number;
+export declare function sortByStars(repos: Irepo[]): Irepo[];
+export declare function sortAlphabetically(repos: Irepo[]): Irepo[];
+export declare function removeRepoWithH(repos: Irepo[]): Irepo[];

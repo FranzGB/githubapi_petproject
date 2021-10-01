@@ -1,7 +1,6 @@
 import moment from "../node_modules/moment/dist/moment.js"
 
-export async function getAllRepos() {
-    const url: string = "https://api.github.com/orgs/stackbuilders/repos";
+export async function getAllRepos(url:string) { 
     const response = await fetch(url);
     return response.json();
 }
@@ -27,10 +26,24 @@ export function sortByDate(repos: Irepo[]){
     return reposClone.sort((a,b)=> moment(b.pushed_at).diff(moment(a.pushed_at)))
 }
 
-export function filterLast5Updated(repos: Irepo[]){
+export function filterFirst5(repos: Irepo[]){
     return repos.slice(0,5)
 }
 
 export function sumAllStars(repos: Irepo[]){
     return repos.reduce((acc,currentRepo)=>acc+=currentRepo.stargazers_count,0)
+}
+
+export function sortByStars(repos: Irepo[]){
+    const reposClone = [...repos];
+    return reposClone.sort((a,b)=> b.stargazers_count - a.stargazers_count)
+}
+
+export function sortAlphabetically(repos: Irepo[]){
+    const reposClone = [...repos];
+    return reposClone.sort((a,b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1)
+}
+
+export function removeRepoWithH(repos: Irepo[]){
+    return repos.filter(repo => !(repo.name.charAt(0)==="h" || repo.name.charAt(0) ==="H"))
 }
