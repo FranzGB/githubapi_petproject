@@ -6,7 +6,7 @@ This project fetches repositories from the Github Api and performs some transfor
 Run `yarn install` to create the node modules.
 Run `yarn test` to run the tests of the module app.js
 
-Typescript is under `src/`.
+Typescript is under `src/`. To compile I use `npx tsc`.
 
 TO DO:
 
